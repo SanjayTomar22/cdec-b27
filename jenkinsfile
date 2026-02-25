@@ -15,7 +15,7 @@ pipeline {
         }
         stage('APPROVE') {
             steps {
-               input 'ALL GOOD?' , OK: 'Approve'
+               input message: 'ALL GOOD?' , ok: "Approve"
             }
         }
         stage('APPLY') {

@@ -4,17 +4,23 @@ pipeline {
     stages {
         stage('pull') {
             steps {
-                git branch: 'main', url: 'https://github.com/SanjayTomar22/cdec-b27.git'
+                git branch: 'main', url: 'https://github.com/SanjayTomar22/devops-b34.git'
             }
         }
-        stage('build') {
+        stage('PLAN') {
             steps {
-               echo 'Build Success.'
+               sh '''terraform init
+                     terraform plan'''
             }
         }
-        stage('test') {
+        stage('APPROVE') {
             steps {
-              sh 'echo "Test success"'
+               input 'ALL GOOD?' , OK: 'Approve'
+            }
+        }
+        stage('APPLY') {
+            steps {
+              sh 'terraform apply --auto-approve'
             }
         }
         stage('deploy') {
